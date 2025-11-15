@@ -8,12 +8,12 @@ Console equ -11
 
 .data
 
-	num dd 0 ;El numero primo al que se le buscaran las raíces primitivas
+	num dd 0 ;El numero primo al que se le buscaran las raÃ­ces primitivas
 
 	factores dd 10 DUP(?)
 	cantFactores dd 0
 
-	raicesRes dd 11000 DUP(?)	; Vector donde se guardaran las raíces encontradas
+	raicesRes dd 11000 DUP(?)	; Vector donde se guardaran las raÃ­ces encontradas
 	cantRaices dd 0
 
 	buffer db 10 dup(' '), ' '
@@ -34,8 +34,24 @@ Console equ -11
 	main PROC
 		sub RSP, 8
 
-
+		xor R8, R8
+		lea R8, buffer_input
+		push R8
+		xor R8, R8
+		lea R8, nBytesRead
+		push R8
 		call leerNumero
+
+		xor R8, R8
+		lea R8, buffer_input
+		push R8
+		xor R8, R8
+		mov R8, nBytesRead
+		push R8
+		xor R8, R8
+		lea R8, num
+		push R8
+		call asciiToBin
 
 		xor R8, R8
 		mov R8d, num
@@ -97,7 +113,7 @@ Console equ -11
 		xor RSI, RSI
 		mov RSI, 0
 		xor RAX, RAX
-		mov EAX, [RSP + 48]	; El número primo
+		mov EAX, [RSP + 48]	; El nÃºmero primo
 		mov R8, [RSP + 40] ; El inicio del vector de los factores de num
 		mov R9d, [RSP + 32] ; La cantidad de factores del num (p-1)
 		mov RDI, [RSP + 24] ; El vector donde se guardaran las raices del numero
@@ -332,7 +348,7 @@ Console equ -11
 			push r10
 
 			push r11
-			push r8 ; El número que se convierte a su formato ascii correspondiente
+			push r8 ; El nÃºmero que se convierte a su formato ascii correspondiente
 			push r13 ;
 			xor r8, r8
 			call BinToAscii
@@ -358,8 +374,10 @@ Console equ -11
 
 	asciiToBin PROC
 		
-		lea rdx, buffer_input
-		mov rcx, nBytesRead
+		mov rdx, [rsp + 24]
+		mov rcx, [rsp + 16]
+		mov r13, [rsp + 8]
+
 		dec rcx
 		dec rcx
 
@@ -386,30 +404,32 @@ Console equ -11
 
 
 	end_loop:
-		mov qword ptr [num], rax 
-		ret
+		mov qword ptr [r13], rax 
+		ret 24
 
 	asciiToBin ENDP
 
 
 
 	leerNumero PROC
-
+		
 		sub rsp, 40
+
+		mov rdx, [rsp + 56] ; buffer_input
+		mov r9, [rsp + 48]	; nBytesWritten
+
 
 		mov rcx, STD_INPUT_HANDLE
 		call GetStdHandle
 		mov stdin, rax
 
 		mov rcx, stdin
-		lea rdx, buffer_input
 		mov r8, 7
-		lea r9, nBytesRead
 
 		call ReadConsoleA
+
 		add rsp, 40
-		call asciiToBin
-		ret
+		ret 16
 
 	leerNumero ENDP
 

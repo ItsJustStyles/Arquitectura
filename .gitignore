@@ -1,0 +1,6 @@
+# Carpetas de Visual Studio
+.vs/
+
+# Archivos de depuración y binarios
+[Bb]in/
+[Oo]bj/
