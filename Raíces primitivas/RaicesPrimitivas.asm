@@ -293,7 +293,7 @@ Console equ -11
 	exponenciacionModular ENDP
 
 	BinToAscii PROC
-		mov r14, [rsp + 32]
+		mov r14, [rsp + 32] ; buffer_start
 		mov rbx, [rsp + 24] ; buffer_length
 		mov eax, [rsp + 16] ; numero
 		mov rdi, [rsp + 8] ; buffer
@@ -374,9 +374,9 @@ Console equ -11
 
 	asciiToBin PROC
 		
-		mov rdx, [rsp + 24]
-		mov rcx, [rsp + 16]
-		mov r13, [rsp + 8]
+		mov rdx, [rsp + 24] ; buffer_input
+		mov rcx, [rsp + 16] ; nBytesRead
+		mov r13, [rsp + 8] ; num
 
 		dec rcx
 		dec rcx
