@@ -8,12 +8,12 @@ Console equ -11
 
 .data
 
-	num dd 0 ;El numero primo al que se le buscaran las raíces primitivas
+	num dd 0 ;El numero primo al que se le buscaran las raÃ­ces primitivas
 
 	factores dd 10 DUP(?)
 	cantFactores dd 0
 
-	raicesRes dd 11000 DUP(?)	; Vector donde se guardaran las raíces encontradas
+	raicesRes dd 11000 DUP(?)	; Vector donde se guardaran las raÃ­ces encontradas
 	cantRaices dd 0
 
 	buffer db 10 dup(' '), ' '
@@ -97,7 +97,7 @@ Console equ -11
 		xor RSI, RSI
 		mov RSI, 0
 		xor RAX, RAX
-		mov EAX, [RSP + 48]	; El número primo
+		mov EAX, [RSP + 48]	; El nÃºmero primo
 		mov R8, [RSP + 40] ; El inicio del vector de los factores de num
 		mov R9d, [RSP + 32] ; La cantidad de factores del num (p-1)
 		mov RDI, [RSP + 24] ; El vector donde se guardaran las raices del numero
@@ -332,7 +332,7 @@ Console equ -11
 			push r10
 
 			push r11
-			push r8 ; El número que se convierte a su formato ascii correspondiente
+			push r8 ; El nÃºmero que se convierte a su formato ascii correspondiente
 			push r13 ;
 			xor r8, r8
 			call BinToAscii
