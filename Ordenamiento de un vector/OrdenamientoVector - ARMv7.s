@@ -13,7 +13,6 @@ _start:
 	ldr r8, tamanoVector
 	ldr r8, [r8]
 	lsl r8, r8, #1
-	sub r8, #2
 	add r8, r8, r0
 	bl bubbleSort
 	b end
@@ -23,6 +22,7 @@ bubbleSort:
 	loop:
 
 		ldr r0, vectorAOrdenar
+		sub r8, #2
 		mov r7, #0
 
 	loop2:
